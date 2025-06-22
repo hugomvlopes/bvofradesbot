@@ -14,14 +14,19 @@ INTERVALO = 120  # segundos (2 minutos)
 ocorrencias_enviadas = set()
 
 def obter_ocorrencias():
-    return [{
-        'id': 'teste123',
-        'date': '2025-06-22',
-        'hour': '23:59',
-        'natureza': 'Teste de Incêndio 🔥',
-        'concelho': 'Oliveira de Frades',
-        'localidade': 'Quartel BVOF'
-    }]
+    try:
+        resposta = requests.get("https://api.fogos.pt/v2/incidents/active?all=1")
+        if resposta.status_code == 200:
+            dados = resposta.json()
+            if isinstance(dados, list):
+                return dados
+            else:
+                print("⚠️ A resposta da API não é uma lista:", dados)
+        else:
+            print(f"⚠️ Erro HTTP {resposta.status_code}")
+    except Exception as e:
+        print(f"❌ Erro ao obter ocorrências: {e}")
+    return []
 
 
 def enviar_alerta(ocorrencia):
