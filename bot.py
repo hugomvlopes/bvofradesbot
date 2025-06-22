@@ -33,11 +33,26 @@ def obter_ocorrencias():
 
 
 def enviar_alerta(ocorrencia):
-    mensagem = f" ⚠️ Nova ocorrência! \n" \
-f"🕒 *Data:* {ocorrencia['date']} às {ocorrencia['hour']}\n" \
-               f"🚨 *Tipo:* {ocorrencia['natureza']}\n" \
-               f"📍 *Local:* {ocorrencia['concelho']} / {ocorrencia['localidade']}\n" \
-               f"📡 _Dados: Prociv / fogos.pt_"
+    mensagem = (
+        f"*⚠️ Nova ocorrência!*\n\n"
+        f"🕒 *Data:* {ocorrencia['date']} às {ocorrencia['hour']}\n"
+        f"🚨 *Tipo:* {ocorrencia['natureza']}\n"
+        f"📍 *Local:* {ocorrencia['concelho']} / {ocorrencia['localidade']}\n"
+        f"📡 _Dados: Prociv / fogos.pt_"
+    )
+
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+    payload = {
+        'chat_id': CHAT_ID,
+        'text': mensagem,
+        'parse_mode': 'Markdown'
+    }
+
+    try:
+        response = requests.post(url, data=payload)
+        print(f"✅ Alerta enviado! Status: {response.status_code}")
+    except Exception as e:
+        print(f"❌ Erro ao enviar alerta: {e}")
 
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     payload = {'chat_id': CHAT_ID, 'text': mensagem, 'parse_mode': 'Markdown'}
