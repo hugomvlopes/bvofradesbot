@@ -15,13 +15,16 @@ ocorrencias_enviadas = set()
 
 def obter_ocorrencias():
     try:
-        resposta = requests.get("https://api.fogos.pt/v2/incidents/active?all=1")
+        resposta = requests.get(FOGOS_API)
         if resposta.status_code == 200:
             dados = resposta.json()
+            # Verifica se é uma lista direta ou um dicionário com lista interna
             if isinstance(dados, list):
                 return dados
+            elif isinstance(dados, dict) and 'data' in dados:
+                return dados['data']
             else:
-                print("⚠️ A resposta da API não é uma lista:", dados)
+                print("⚠️ Estrutura inesperada na resposta:", dados)
         else:
             print(f"⚠️ Erro HTTP {resposta.status_code}")
     except Exception as e:
