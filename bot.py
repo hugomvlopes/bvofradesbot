@@ -33,7 +33,8 @@ def obter_ocorrencias():
 
 
 def enviar_alerta(ocorrencia):
-    mensagem = f"🕒 *Data:* {ocorrencia['date']} às {ocorrencia['hour']}\n" \
+    mensagem = f" ⚠️ Nova ocorrência! \n" \
+f"🕒 *Data:* {ocorrencia['date']} às {ocorrencia['hour']}\n" \
                f"🚨 *Tipo:* {ocorrencia['natureza']}\n" \
                f"📍 *Local:* {ocorrencia['concelho']} / {ocorrencia['localidade']}\n" \
                f"📡 _Dados: Prociv / fogos.pt_"
