@@ -23,11 +23,12 @@ def enviar_alerta(ocorrencia):
         f"📍 *Local:* {ocorrencia['concelho']} / {ocorrencia['localidade']}\n"
         f"📡 _Dados: Prociv / fogos.pt_"
     )
-    payload = {
-        'chat_id': CHAT_ID,
-        'text': mensagem,
-        'parse_mode': 'Markdown'
-    }
+   payload = {
+    'chat_id': CHAT_ID,
+    'photo': imagem,
+    'caption': legenda
+    # 'parse_mode': 'Markdown'  ← comenta só para testar
+}
     res = requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage", json=payload)
     print(f"✅ Alerta enviado! Status: {res.status_code}")
 
