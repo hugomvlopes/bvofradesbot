@@ -17,12 +17,12 @@ print(f"\n🚒 Bot de Alerta BVOFRADES [MODO TESTE] iniciado...")
 
 def enviar_alerta(ocorrencia):
     mensagem = (
-        f"*⚠️ Nova ocorrência!*
-"
-        f"🕒 *Data:* {ocorrencia['date']} às {ocorrencia['hour']}\n"
-        f"🚨 *Tipo:* {ocorrencia['natureza']}\n"
-        f"📍 *Local:* {ocorrencia['concelho']} / {ocorrencia['localidade']}\n"
-        f"📡 _Dados: Prociv / fogos.pt_"
+    f"*⚠️ Nova ocorrência!*\n"
+    f"🕒 *Data:* {ocorrencia['date']} às {ocorrencia['hour']}\n"
+    f"🚨 *Tipo:* {ocorrencia['natureza']}\n"
+    f"📍 *Local:* {ocorrencia['concelho']} / {ocorrencia['localidade']}\n"
+    f"📡 _Dados: Prociv / fogos.pt_"
+)
     )
     payload = {
         'chat_id': CHAT_ID,
