@@ -1,3 +1,5 @@
+from datetime import datetime
+print(f"🟢 BOT INICIADO: {datetime.now()}")
 import requests
 import time
 import os
