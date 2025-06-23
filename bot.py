@@ -6,7 +6,7 @@ from datetime import datetime
 # Variáveis de ambiente do Railway
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
-FOGOS_API = 'https://api.fogos.pt/v2/incidents/active?all=1'
+FOGOS_API = 'https://api.fogos.pt/v2/incidents/active?all=1&subRegion=Viseu%20D%C3%A3o%20Laf%C3%B5es'
 INTERVALO = 120  # segundos (2 minutos)
 
 # 🔹 Funções para guardar histórico de envios
