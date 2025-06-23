@@ -30,6 +30,7 @@ def enviar_alerta(ocorrencia):
     }
     res = requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage", json=payload)
     print(f"✅ Alerta enviado! Status: {res.status_code}")
+print(telegram_res.text)
 
 def verificar_ocorrencias():
     try:
