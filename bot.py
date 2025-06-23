@@ -63,7 +63,7 @@ def verificar_e_enviar_pir():
             f"🔥 *Perigo de Incêndio Rural*\n"
             f"📍 Oliveira de Frades\n"
             f"⚠️ *Nível:* {nivel} ({rcm})\n"
-            f"📡 _Fonte: IPMA (www.ipma.pt)_"
+            f"📡 _Fonte: IPMA"
         )
 
         payload = {
@@ -89,6 +89,9 @@ schedule.every().day.at("10:00").do(verificar_e_enviar_pir)
 
 print("🕒 Agendamentos ativos: Ocorrências a cada 2 min | PIR às 10h")
 
+verificar_e_enviar_pir()  # ⚠️ Linha temporária para testar já
+
 while True:
     schedule.run_pending()
     time.sleep(1)
+
