@@ -35,8 +35,10 @@ def verificar_ocorrencias():
     try:
         res = requests.get(OCORRENCIAS_URL)
         data = res.json()
+        print("DEBUG DATA:", data)
 
-        novas_ocorrencias = [o for o in data if o['id'] not in ocorrencias_enviadas]
+        ocorrencias = data if isinstance(data, list) else data.get("data", [])
+        novas_ocorrencias = [o for o in ocorrencias if isinstance(o, dict) and o['id'] not in ocorrencias_enviadas]
         print(f"🔍 Ocorrências recebidas: {len(novas_ocorrencias)}")
 
         for o in novas_ocorrencias:
@@ -74,7 +76,8 @@ def verificar_e_enviar_pir():
         }
 
         telegram_res = requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto", data=payload)
-        print(telegram_res.text)
+
+        print(telegram_res.text)  # Debug do erro
 
         if telegram_res.status_code == 200:
             print(f"✅ PIR enviado com sucesso! ({nivel})")
@@ -90,6 +93,10 @@ schedule.every().day.at("10:00").do(verificar_e_enviar_pir)
 
 print("🕒 Agendamentos ativos: Ocorrências a cada 2 min | PIR às 10h")
 
+# Execução forçada para teste
+verificar_e_enviar_pir()
+
 while True:
     schedule.run_pending()
-    time.sleep(1)
+    print(f"⏳ A correr... {datetime.now()}")
+    time.sleep(30)
