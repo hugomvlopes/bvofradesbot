@@ -22,6 +22,7 @@ def enviar_alerta(ocorrencia):
         f"🚨 *Tipo:* {ocorrencia['natureza']}\n"
         f"📍 *Local:* {ocorrencia['concelho']} / {ocorrencia['localidade']}\n"
         f"📡 _Dados: Prociv / fogos.pt_"
+        f"💬 _Esta mensagem é automática | @bvofrades_"
     )
     payload = {
         'chat_id': CHAT_ID,
