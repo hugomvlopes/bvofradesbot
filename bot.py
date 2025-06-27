@@ -21,7 +21,7 @@ def enviar_alerta(ocorrencia):
         f"🕒 *Data:* {ocorrencia['date']} às {ocorrencia['hour']}\n"
         f"🚨 *Tipo:* {ocorrencia['natureza']}\n"
         f"📍 *Local:* {ocorrencia['concelho']} / {ocorrencia['localidade']}\n"
-        f"📡 _Dados: Prociv / fogos.pt_"
+        f"📡 _Dados: Prociv / fogos.pt_\n"
         f"💬 _Esta mensagem é automática | @bvofrades_"
     )
     payload = {
