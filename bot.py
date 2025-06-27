@@ -74,6 +74,7 @@ def verificar_e_enviar_pir():
         }
 
         telegram_res = requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto", data=payload)
+        print(telegram_res.text)
 
         if telegram_res.status_code == 200:
             print(f"✅ PIR enviado com sucesso! ({nivel})")
