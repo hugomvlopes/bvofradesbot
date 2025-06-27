@@ -10,7 +10,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 
-OCORRENCIAS_URL = "https://api.fogos.pt/v2/incidents/active?all=1"
+OCORRENCIAS_URL = "https://api.fogos.pt/v2/incidents/active?all=1&subRegion=Viseu%20D%C3%A3o%20Laf%C3%B5es"
 ocorrencias_enviadas = set()
 
 print(f"\n🚒 Bot de Alerta BVOFRADES [MODO TESTE] iniciado...")
@@ -89,7 +89,7 @@ def verificar_e_enviar_pir():
 
 # Agendamento
 schedule.every(2).minutes.do(verificar_ocorrencias)
-schedule.every().day.at("10:00").do(verificar_e_enviar_pir)
+schedule.every().day.at("09:30").do(verificar_e_enviar_pir)
 
 print("🕒 Agendamentos ativos: Ocorrências a cada 2 min | PIR às 10h")
 
