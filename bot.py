@@ -10,20 +10,21 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 
-OCORRENCIAS_URL = "https://api.fogos.pt/v2/incidents/active?all=1&subRegion=Viseu%20D%C3%A3o%20Laf%C3%B5es"
+OCORRENCIAS_URL = "https://api.fogos.pt/v2/incidents/active?all=1&concelho=Oliveira%20De%20Frades"
 ocorrencias_enviadas = set()
 
 print(f"\n🚒 Bot de Alerta BVOFRADES [MODO TESTE] iniciado...")
 
 def enviar_alerta(ocorrencia):
     mensagem = (
-        f"*⚠️ Nova ocorrência!*\n"
-        f"🕒 *Data:* {ocorrencia['date']} às {ocorrencia['hour']}\n"
-        f"🚨 *Tipo:* {ocorrencia['natureza']}\n"
-        f"📍 *Local:* {ocorrencia['concelho']} / {ocorrencia['localidade']}\n"
-        f"📡 _Dados: Prociv / fogos.pt_\n"
-        f"💬 _Esta mensagem é automática | @bvofrades_"
-    )
+    f"⚠️ Nova ocorrência!\n\n"
+    f"🕒 Data: {data} às {hora}\n"
+    f"🚨 Tipo: {tipo}\n"
+    f"📍 Local: {concelho} / {localidade}\n\n"
+    f"📡 Dados: prociv / fogos.pt\n"
+    f"💬 Esta mensagem é automática | @bvofrades"
+)
+
     payload = {
         'chat_id': CHAT_ID,
         'text': mensagem,
@@ -63,11 +64,14 @@ def verificar_e_enviar_pir():
         imagem = "https://i.imgur.com/DIZs1sq.png" if rcm == 4 else "https://i.imgur.com/GL2ir8l.png"
 
         legenda = (
-            f"🔥 *Perigo de Incêndio Rural*\n"
-            f"📍 Oliveira de Frades\n"
-            f"⚠️ *Nível:* {nivel} ({rcm})\n"
-            f"📡 _Fonte: IPMA (www.ipma.pt)_"
-        )
+    f"🔥 *Perigo de Incêndio Rural*\n"
+    f"📍 Oliveira de Frades\n"
+    f"⚠️ Nível: *{nivel}*\n"
+    f"📡 _Fonte: IPMA (www.ipma.pt)_\n\n"
+    f"🚫 Não faça uso do fogo, seja responsável!\n"
+    f"🧯 A PREVENÇÃO COMEÇA EM SI. Em caso de incêndio ligue 112!"
+)
+
 
         payload = {
             'chat_id': CHAT_ID,
