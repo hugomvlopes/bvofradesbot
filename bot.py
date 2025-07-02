@@ -1,51 +1,39 @@
 import os
 import requests
-import time
-import schedule
 from datetime import datetime
-from dotenv import load_dotenv
 
-load_dotenv()
-
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-CHAT_ID = os.getenv("CHAT_ID")
-
-OCORRENCIAS_URL = "https://api.fogos.pt/v2/incidents/active?all=1&concelho=Oliveira%20De%20Frades"
+OCORRENCIAS_URL = "https://api.fogos.pt/v2/incidents/active?all=1"
 ocorrencias_enviadas = set()
-
-print(f"\n🚒 Bot de Alerta BVOFRADES [MODO TESTE] iniciado...")
-
-def enviar_alerta(ocorrencia):
-    mensagem = (
-    f"⚠️ Nova ocorrência!\n\n"
-    f"🕒 Data: {data} às {hora}\n"
-    f"🚨 Tipo: {tipo}\n"
-    f"📍 Local: {concelho} / {localidade}\n\n"
-    f"📡 Dados: prociv / fogos.pt\n"
-    f"💬 Esta mensagem é automática | @bvofrades"
-)
-
-    payload = {
-        'chat_id': CHAT_ID,
-        'text': mensagem,
-        'parse_mode': 'Markdown'
-    }
-    res = requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage", json=payload)
-    print(f"✅ Alerta enviado! Status: {res.status_code}")
 
 def verificar_ocorrencias():
     try:
         res = requests.get(OCORRENCIAS_URL)
-        data = res.json()
-        print("DEBUG DATA:", data)
+        dados = res.json()
 
-        ocorrencias = data if isinstance(data, list) else data.get("data", [])
-        novas_ocorrencias = [o for o in ocorrencias if isinstance(o, dict) and o['id'] not in ocorrencias_enviadas]
-        print(f"🔍 Ocorrências recebidas: {len(novas_ocorrencias)}")
+        if not isinstance(dados, list):
+            print("❌ Dados inválidos ou vazios recebidos da API.")
+            return
 
-        for o in novas_ocorrencias:
-            ocorrencias_enviadas.add(o['id'])
-            enviar_alerta(o)
+        ocorrencias_validas = 0
+
+        for ocorrencia in dados:
+            if ocorrencia.get("concelho", "").lower() != "oliveira de frades":
+                continue
+
+            ocorrencias_validas += 1
+            ocorr_id = ocorrencia.get("id")
+
+            if ocorr_id in ocorrencias_enviadas:
+                continue
+
+            # Enviar alerta
+            enviar_alerta(ocorrencia)
+
+            print(f"✅ Alerta enviado: ID {ocorr_id} - {ocorrencia.get('localidade')}")
+            ocorrencias_enviadas.add(ocorr_id)
+
+        print(f"🔍 Ocorrências válidas encontradas: {ocorrencias_validas}")
+
     except Exception as e:
         print(f"❌ Erro ao verificar ocorrências: {e}")
 
