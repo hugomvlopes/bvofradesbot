@@ -1,5 +1,7 @@
 import os
 import requests
+import schedule
+import time
 from datetime import datetime
 
 OCORRENCIAS_URL = "https://api.fogos.pt/v2/incidents/active?all=1"
