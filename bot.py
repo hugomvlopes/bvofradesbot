@@ -19,6 +19,17 @@ def enviar_alerta(ocorrencia):
         f"📡 _Dados: Prociv / fogos.pt_\n"
         f"💬 Esta mensagem é automática | @bvofrades"
     )
+# Gerar URL dinâmico
+    atualizacoes_url = f"https://bvofrades.pt/ocorrencias/?id={ocorrencia['id']}"
+
+    # Inline button
+    buttons = {
+        "inline_keyboard": [
+            [
+                {"text": "📋 Atualizações", "url": atualizacoes_url}
+            ]
+        ]
+    }
 
     response = requests.post(
         f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
