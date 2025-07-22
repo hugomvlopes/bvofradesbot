@@ -6,7 +6,7 @@ from datetime import datetime
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
-OCORRENCIAS_URL = "https://api.fogos.pt/v2/incidents/active?all=1&subRegion=Viseu%20D%C3%A3o%20Laf%C3%B5e"
+OCORRENCIAS_URL = "https://api.fogos.pt/v2/incidents/active?all=1&concelho=Oliveira%20De%20Frades"
 
 ocorrencias_enviadas = set()
 
@@ -116,3 +116,16 @@ while True:
     schedule.run_pending()
     print(f"⏳ A correr... {datetime.now()}")
     time.sleep(30)
+
+if __name__ == "__main__":
+    # ⚠️ Teste manual
+    ocorrencia_teste = {
+        "id": "20250959975",
+        "date": datetime.now().strftime("%d-%m-%Y"),
+        "hour": datetime.now().strftime("%H:%M"),
+        "natureza": "Simulação de Alerta 🔥",
+        "concelho": "Oliveira De Frades",
+        "localidade": "Quartel BVOF"
+    }
+
+    enviar_alerta(ocorrencia_teste)
