@@ -117,15 +117,14 @@ while True:
     print(f"⏳ A correr... {datetime.now()}")
     time.sleep(30)
 
-if __name__ == "__main__":
-    # ⚠️ Teste manual
-    ocorrencia_teste = {
-        "id": "20250959975",
-        "date": datetime.now().strftime("%d-%m-%Y"),
-        "hour": datetime.now().strftime("%H:%M"),
-        "natureza": "Simulação de Alerta 🔥",
-        "concelho": "Oliveira De Frades",
-        "localidade": "Quartel BVOF"
-    }
+# ⚠️ Teste manual: enviar ocorrência fake ao arrancar
+ocorrencia_teste = {
+    "id": "20250959975",
+    "date": datetime.now().strftime("%d-%m-%Y"),
+    "hour": datetime.now().strftime("%H:%M"),
+    "natureza": "Simulação de Alerta 🔥",
+    "concelho": "Oliveira De Frades",
+    "localidade": "Quartel BVOF"
+}
 
-    enviar_alerta(ocorrencia_teste)
+enviar_alerta(ocorrencia_teste)
