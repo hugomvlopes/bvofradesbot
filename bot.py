@@ -31,14 +31,16 @@ def enviar_alerta(ocorrencia):
         ]
     }
 
-    response = requests.post(
-        f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
-        json={
-            "chat_id": CHAT_ID,
-            "text": mensagem,
-            "parse_mode": "Markdown"
-        }
-    )
+response = requests.post(
+    f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+    json={
+        "chat_id": CHAT_ID,
+        "text": mensagem,
+        "parse_mode": "Markdown",
+        "reply_markup": json.dumps(buttons)
+    }
+)
+
 
     print(f"✅ Alerta enviado! Status: {response.status_code}")
 
