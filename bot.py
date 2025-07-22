@@ -105,6 +105,23 @@ def verificar_e_enviar_pir():
     except Exception as e:
         print(f"❌ Erro ao verificar PIR: {e}")
 
+# 🔥 ALERTA FAKE ANTES DO LOOP
+ocorrencia_teste = {
+    "id": "20250959975",
+    "date": datetime.now().strftime("%d-%m-%Y"),
+    "hour": datetime.now().strftime("%H:%M"),
+    "natureza": "Simulação de Alerta 🔥",
+    "concelho": "Oliveira De Frades",
+    "localidade": "Quartel BVOF"
+}
+enviar_alerta(ocorrencia_teste)
+
+# 🔁 Loop de agendamentos
+while True:
+    schedule.run_pending()
+    print(f"⏳ A correr... {datetime.now()}")
+    time.sleep(30)
+
 # Agendamento
 schedule.every(2).minutes.do(verificar_ocorrencias)
 schedule.every().day.at("09:30").do(verificar_e_enviar_pir)
@@ -118,17 +135,3 @@ while True:
     schedule.run_pending()
     print(f"⏳ A correr... {datetime.now()}")
     time.sleep(30)
-
-# ⚠️ Teste manual: enviar ocorrência fake ao arrancar
-ENVIAR_TESTE = True
-
-if ENVIAR_TESTE:
-    ocorrencia_teste = {
-        "id": "20250959975",
-        "date": datetime.now().strftime("%d-%m-%Y"),
-        "hour": datetime.now().strftime("%H:%M"),
-        "natureza": "Simulação de Alerta 🔥",
-        "concelho": "Oliveira De Frades",
-        "localidade": "Quartel BVOF"
-    }
-    enviar_alerta(ocorrencia_teste)
