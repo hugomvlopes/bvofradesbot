@@ -120,13 +120,15 @@ while True:
     time.sleep(30)
 
 # ⚠️ Teste manual: enviar ocorrência fake ao arrancar
-ocorrencia_teste = {
-    "id": "20250959975",
-    "date": datetime.now().strftime("%d-%m-%Y"),
-    "hour": datetime.now().strftime("%H:%M"),
-    "natureza": "Simulação de Alerta 🔥",
-    "concelho": "Oliveira De Frades",
-    "localidade": "Quartel BVOF"
-}
+ENVIAR_TESTE = True
 
-enviar_alerta(ocorrencia_teste)
+if ENVIAR_TESTE:
+    ocorrencia_teste = {
+        "id": "20250959975",
+        "date": datetime.now().strftime("%d-%m-%Y"),
+        "hour": datetime.now().strftime("%H:%M"),
+        "natureza": "Simulação de Alerta 🔥",
+        "concelho": "Oliveira De Frades",
+        "localidade": "Quartel BVOF"
+    }
+    enviar_alerta(ocorrencia_teste)
