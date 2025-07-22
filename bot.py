@@ -41,8 +41,8 @@ response = requests.post(
     }
 )
 
+print(f"✅ Alerta enviado! Status: {response.status_code}")
 
-    print(f"✅ Alerta enviado! Status: {response.status_code}")
 
 def verificar_ocorrencias():
     try:
