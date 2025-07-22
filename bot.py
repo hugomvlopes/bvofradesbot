@@ -19,7 +19,7 @@ def enviar_alerta(ocorrencia):
         f"📡 _Dados: Prociv / fogos.pt_\n"
         f"💬 Esta mensagem é automática | @bvofrades"
     )
-# Gerar URL dinâmico
+    # Gerar URL dinâmico
     atualizacoes_url = f"https://bvofrades.pt/ocorrencias/?id={ocorrencia['id']}"
 
     # Inline button
@@ -31,17 +31,17 @@ def enviar_alerta(ocorrencia):
         ]
     }
 
-response = requests.post(
-    f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
-    json={
-        "chat_id": CHAT_ID,
-        "text": mensagem,
-        "parse_mode": "Markdown",
-        "reply_markup": json.dumps(buttons)
-    }
-)
+    response = requests.post(
+        f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+        json={
+            "chat_id": CHAT_ID,
+            "text": mensagem,
+            "parse_mode": "Markdown",
+            "reply_markup": json.dumps(buttons)
+        }
+    )
 
-print(f"✅ Alerta enviado! Status: {response.status_code}")
+    print(f"✅ Alerta enviado! Status: {response.status_code}")
 
 
 def verificar_ocorrencias():
@@ -115,12 +115,6 @@ ocorrencia_teste = {
     "localidade": "Quartel BVOF"
 }
 enviar_alerta(ocorrencia_teste)
-
-# 🔁 Loop de agendamentos
-while True:
-    schedule.run_pending()
-    print(f"⏳ A correr... {datetime.now()}")
-    time.sleep(30)
 
 # Agendamento
 schedule.every(2).minutes.do(verificar_ocorrencias)
