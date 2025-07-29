@@ -106,17 +106,6 @@ def verificar_e_enviar_pir():
     except Exception as e:
         print(f"❌ Erro ao verificar PIR: {e}")
 
-# 🔥 ALERTA FAKE ANTES DO LOOP
-ocorrencia_teste = {
-    "id": "20250959975",
-    "date": datetime.now().strftime("%d-%m-%Y"),
-    "hour": datetime.now().strftime("%H:%M"),
-    "natureza": "Simulação de Alerta 🔥",
-    "concelho": "Oliveira De Frades",
-    "localidade": "Quartel BVOF"
-}
-enviar_alerta(ocorrencia_teste)
-
 # Agendamento
 schedule.every(2).minutes.do(verificar_ocorrencias)
 schedule.every().day.at("09:30").do(verificar_e_enviar_pir)
